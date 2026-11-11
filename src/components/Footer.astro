@@ -1,0 +1,64 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default />
+
+<div class="site-foot">
+	<p>
+		Written from the code and tests of each repository. If a page and the code disagree, the code is right and the page
+		has a bug: <a href="https://github.com/Aquilabot/libs/issues">open an issue</a>.
+	</p>
+	<ul>
+		<li><a href="https://oss.clx.pe">All libraries <span aria-hidden="true">↗</span></a></li>
+		<li><a href="https://libs.clx.pe">brackets and hashchain docs <span aria-hidden="true">↗</span></a></li>
+		<li><a href="https://github.com/Aquilabot">GitHub <span aria-hidden="true">↗</span></a></li>
+		<li><a href="https://aquilabot.dev">aquilabot.dev <span aria-hidden="true">↗</span></a></li>
+	</ul>
+	<p class="legal">© 2026 Jean Carlo Benites Porras. Code samples are MIT, like the libraries they come from.</p>
+</div>
+
+<style>
+	.site-foot {
+		margin-top: 3.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--line);
+		color: var(--faint);
+		font-size: 0.8125rem;
+		line-height: 1.5;
+	}
+	.site-foot p {
+		max-width: 34rem;
+		margin: 0;
+	}
+	.site-foot ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem 1.5rem;
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0;
+	}
+	.site-foot a {
+		color: var(--muted);
+		text-decoration: underline;
+		text-decoration-color: var(--line-strong);
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+	}
+	.site-foot a:hover {
+		color: var(--text);
+		text-decoration-color: var(--accent);
+	}
+	.site-foot ul a {
+		text-decoration-color: transparent;
+	}
+	.site-foot span {
+		color: var(--accent);
+	}
+	@media print {
+		.site-foot ul {
+			display: none;
+		}
+	}
+</style>

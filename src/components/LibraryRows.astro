@@ -1,0 +1,194 @@
+---
+import { libraries, related } from '../data/libraries.mjs';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ul class="lib-rows">
+	{
+		libraries.map((lib) => (
+			<li>
+				<a class="lib-name" href={`${base}/${lib.name}/`}>
+					{lib.name}
+				</a>
+				<div class="lib-text">
+					<p>{lib.summary}</p>
+					<p class="lib-links">
+						<a class="lib-link" href={`${base}/${lib.name}/quick-start/`}>
+							Quick start <span aria-hidden="true">→</span>
+						</a>
+						<a class="lib-link quiet" href={`https://github.com/Aquilabot/${lib.name}`}>
+							Source <span aria-hidden="true">↗</span>
+						</a>
+					</p>
+				</div>
+				<dl class="lib-fact">
+					<div>
+						<dt>Kind</dt>
+						<dd>{lib.kind}</dd>
+					</div>
+					<div>
+						<dt>Runs on</dt>
+						<dd>{lib.stack}</dd>
+					</div>
+					<div>
+						<dt>Version</dt>
+						<dd class="mono">{lib.version}</dd>
+					</div>
+				</dl>
+			</li>
+		))
+	}
+</ul>
+
+<h2 id="related-libraries">Related libraries</h2>
+<p class="rel-intro">
+	Two Go libraries have their own documentation site at <a href="https://libs.clx.pe">libs.clx.pe</a>. All six are
+	listed together at <a href="https://oss.clx.pe">oss.clx.pe</a>.
+</p>
+
+<ul class="rel-rows">
+	{
+		related.map((lib) => (
+			<li>
+				<a class="lib-name" href={lib.href}>
+					{lib.name} <span aria-hidden="true">↗</span>
+				</a>
+				<p>{lib.summary}</p>
+				<p class="rel-fact">{lib.stack}</p>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 2.5rem 0 0;
+		border-top: 1px solid var(--line);
+	}
+	li {
+		display: grid;
+		grid-template-columns: 15rem minmax(0, 1fr) 15rem;
+		column-gap: 1.25rem;
+		align-items: start;
+		padding: 1.35rem 0;
+		margin: 0;
+		border-bottom: 1px solid var(--line);
+	}
+	li > :global(*) {
+		margin: 0;
+	}
+	p {
+		margin: 0;
+	}
+
+	.lib-name {
+		font-family: var(--mono);
+		font-size: 0.9375rem;
+		color: var(--accent);
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+		overflow-wrap: anywhere;
+	}
+	.lib-name:hover {
+		text-decoration-color: var(--accent);
+	}
+
+	.lib-text p,
+	.rel-rows p {
+		color: var(--text);
+		line-height: 1.5;
+	}
+	.lib-text .lib-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 1.5rem;
+		margin-top: 0.7rem;
+		font-size: 0.9375rem;
+	}
+	.lib-text .lib-link {
+		color: var(--accent);
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+	}
+	.lib-text .lib-link.quiet {
+		color: var(--muted);
+	}
+	.lib-text .lib-link:hover {
+		text-decoration-color: var(--accent);
+	}
+	.lib-text .lib-link.quiet:hover {
+		color: var(--text);
+	}
+
+	.lib-fact {
+		margin: 0;
+		font-size: 0.8125rem;
+		line-height: 1.5;
+	}
+	.lib-fact div {
+		display: grid;
+		grid-template-columns: 4.25rem minmax(0, 1fr);
+		column-gap: 0.75rem;
+		margin: 0;
+	}
+	.lib-fact div + div {
+		margin-top: 0.2rem;
+	}
+	.lib-fact dt {
+		color: var(--faint);
+		font-weight: 400;
+	}
+	.lib-fact dd {
+		margin: 0;
+		padding: 0;
+		color: var(--muted);
+	}
+	.mono {
+		font-family: var(--mono);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.rel-intro {
+		max-width: var(--measure);
+		margin-top: 0.85rem;
+	}
+	.rel-rows {
+		margin-top: 1.5rem;
+	}
+	.rel-rows li {
+		padding: 1rem 0;
+	}
+	.rel-rows .rel-fact {
+		color: var(--faint);
+		font-size: 0.8125rem;
+	}
+
+	@media (max-width: 62rem) {
+		li {
+			grid-template-columns: 13rem minmax(0, 1fr);
+		}
+		.lib-fact,
+		.rel-rows .rel-fact {
+			grid-column: 2;
+			margin-top: 0.9rem;
+		}
+	}
+	@media (max-width: 47.5rem) {
+		li {
+			grid-template-columns: minmax(0, 1fr);
+			row-gap: 0.5rem;
+		}
+		.lib-fact,
+		.rel-rows .rel-fact {
+			grid-column: 1;
+			margin-top: 0.5rem;
+		}
+	}
+</style>

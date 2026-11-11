@@ -1,0 +1,630 @@
+/*
+ * Theme for aquilabot/libs. It carries the aquilabot.dev system ("The Annotated Ledger") into
+ * Starlight: near-black ground, warm grays, one pass-green, 1px hairlines instead of boxes,
+ * Schibsted Grotesk for words and JetBrains Mono for code and numbers.
+ * The light theme is the same system on paper: same roles, darker green.
+ * These rules are unlayered on purpose, so they win over Starlight's layered defaults.
+ */
+
+:root {
+	--bg: #0e100f;
+	--surface: #141715;
+	--line: #242926;
+	--line-strong: #343b37;
+	--text: #e6e9e5;
+	--muted: #a3aba5;
+	--faint: #7e8781;
+	--accent: #8fe3ad;
+	--accent-ink: #0b130e;
+	--accent-wash: #16241b;
+	--code-bg: #0a0c0b;
+
+	--sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+	--mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+	--measure: 42rem;
+
+	color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+	--bg: #f7f8f5;
+	--surface: #eef0ec;
+	--line: #dde1dc;
+	--line-strong: #c2c9c3;
+	--text: #141815;
+	--muted: #454d48;
+	--faint: #606963;
+	--accent: #17643a;
+	--accent-ink: #f7f8f5;
+	--accent-wash: #dcebe0;
+	--code-bg: #eff1ed;
+
+	color-scheme: light;
+}
+
+/* Starlight's own variables, pointed at the tokens above. */
+:root,
+:root[data-theme='light'],
+::backdrop,
+[data-theme='light'] ::backdrop {
+	--sl-font: var(--sans);
+	--sl-font-mono: var(--mono);
+
+	--sl-color-white: var(--text);
+	--sl-color-gray-1: var(--text);
+	--sl-color-gray-2: var(--muted);
+	--sl-color-gray-3: var(--faint);
+	--sl-color-gray-4: var(--faint);
+	--sl-color-gray-5: var(--line-strong);
+	--sl-color-gray-6: var(--surface);
+	--sl-color-gray-7: var(--surface);
+	--sl-color-black: var(--bg);
+
+	--sl-color-accent-low: var(--accent-wash);
+	--sl-color-accent: var(--accent);
+	--sl-color-accent-high: var(--accent);
+
+	--sl-color-text: var(--muted);
+	--sl-color-text-accent: var(--accent);
+	--sl-color-text-invert: var(--accent-ink);
+	--sl-color-bg: var(--bg);
+	--sl-color-bg-nav: var(--bg);
+	--sl-color-bg-sidebar: var(--bg);
+	--sl-color-bg-inline-code: var(--surface);
+	--sl-color-bg-accent: var(--accent);
+	--sl-color-hairline-light: var(--line);
+	--sl-color-hairline: var(--line);
+	--sl-color-hairline-shade: var(--line);
+	--sl-color-backdrop-overlay: color-mix(in srgb, var(--bg) 78%, transparent);
+
+	/* The system is flat: depth is tone and hairline. */
+	--sl-shadow-sm: none;
+	--sl-shadow-md: none;
+	--sl-shadow-lg: none;
+
+	--sl-text-body: 1.0625rem;
+	--sl-text-code: 0.875em;
+	--sl-text-h1: clamp(2.1rem, 4.6vw, 3.25rem);
+	--sl-text-h2: clamp(1.4rem, 2.4vw, 1.75rem);
+	--sl-text-h3: 1.375rem;
+	--sl-text-h4: 1.125rem;
+	--sl-text-h5: 1.0625rem;
+	--sl-line-height: 1.6;
+	--sl-line-height-headings: 1.2;
+
+	--sl-content-width: var(--measure);
+	--sl-sidebar-width: 17.5rem;
+}
+
+/* ---------- Browser surfaces ---------- */
+
+html {
+	scrollbar-color: var(--line-strong) var(--bg);
+	scrollbar-width: thin;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+/* ---------- Masthead ---------- */
+
+.site-title {
+	font-family: var(--mono);
+	font-size: 0.9375rem;
+	font-weight: 500;
+	color: var(--muted);
+	letter-spacing: 0;
+}
+.site-title:hover {
+	color: var(--text);
+}
+
+header.header {
+	border-bottom-color: var(--line);
+}
+
+/* Search trigger: a quiet control with a hairline edge. */
+site-search > button[data-open-modal] {
+	font-size: 0.875rem;
+	color: var(--faint);
+}
+@media (min-width: 50rem) {
+	site-search > button[data-open-modal] {
+		border-color: var(--line-strong);
+		border-radius: 999px;
+		background: transparent;
+		padding-inline: 0.9rem 0.6rem;
+		max-width: 19rem;
+	}
+	site-search > button[data-open-modal]:hover {
+		border-color: var(--accent);
+		color: var(--text);
+	}
+	site-search > button[data-open-modal] > kbd {
+		background: transparent;
+		border: 0;
+		font-family: var(--mono);
+		font-size: 0.75rem;
+		color: var(--faint);
+	}
+}
+site-search dialog {
+	border-color: var(--line-strong);
+	border-radius: 10px;
+	background: var(--bg);
+}
+
+starlight-theme-select select,
+starlight-theme-select label {
+	color: var(--muted);
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar-content {
+	padding-top: 1.5rem;
+}
+
+.sidebar-content ul.top-level > li + li {
+	margin-top: 0;
+}
+
+.sidebar-content a,
+.sidebar-content summary {
+	border-radius: 2px;
+	padding-block: 0.34rem;
+}
+
+.sidebar-content a {
+	color: var(--muted);
+}
+
+.sidebar-content a:hover,
+.sidebar-content a:focus-visible {
+	color: var(--text);
+}
+
+/* Current page: ink text and the short green dash that marks list items on aquilabot.dev. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+	position: relative;
+	background: transparent;
+	color: var(--text);
+	font-weight: 600;
+}
+.sidebar-content ul ul a[aria-current='page']::before {
+	content: '';
+	position: absolute;
+	inset-inline-start: calc(-0.5rem - 1px);
+	top: 0.3rem;
+	bottom: 0.3rem;
+	width: 1px;
+	background: var(--accent);
+}
+
+/* Top-level groups are the library names: repo identifiers, so they are mono. */
+.sidebar-content ul.top-level > li > details > summary {
+	padding-block: 0.55rem;
+	border-top: 1px solid var(--line);
+}
+.sidebar-content ul.top-level > li:last-child > details {
+	border-bottom: 1px solid var(--line);
+}
+.sidebar-content ul.top-level > li > details > summary .large {
+	font-family: var(--mono);
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: var(--muted);
+}
+.sidebar-content ul.top-level > li > details[open] > summary .large,
+.sidebar-content ul.top-level > li > details > summary:hover .large {
+	color: var(--text);
+}
+.sidebar-content ul.top-level > li > details > ul {
+	padding-bottom: 0.75rem;
+}
+.sidebar-content ul.top-level > li > a.large {
+	font-size: 0.875rem;
+	font-weight: 400;
+	padding-block: 0.55rem;
+}
+
+/* Nested groups (Guides, Reference): a quiet label, not a second heading. */
+.sidebar-content ul ul summary .large {
+	font-family: var(--sans);
+	font-size: 0.8125rem;
+	font-weight: 400;
+	color: var(--faint);
+}
+.sidebar-content .caret {
+	color: var(--faint);
+	font-size: 1rem;
+}
+
+/* ---------- Table of contents (the right margin) ---------- */
+
+starlight-toc h2,
+mobile-starlight-toc .toggle {
+	font-size: 0.8125rem;
+	font-weight: 400;
+	color: var(--faint);
+}
+starlight-toc h2 {
+	padding-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
+	border-bottom: 1px solid var(--line);
+}
+starlight-toc a {
+	font-size: 0.8125rem;
+	line-height: 1.4;
+	color: var(--faint);
+	text-decoration: none;
+}
+starlight-toc a:hover {
+	color: var(--text);
+}
+starlight-toc a[aria-current='true'] {
+	color: var(--text);
+}
+.right-sidebar {
+	border-inline-start: 0;
+}
+mobile-starlight-toc nav {
+	border-top: 0;
+}
+mobile-starlight-toc .toggle {
+	border-color: var(--line-strong);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--muted);
+}
+mobile-starlight-toc .dropdown {
+	border-color: var(--line-strong);
+	border-radius: 10px;
+}
+
+/* ---------- Reading column ---------- */
+
+.content-panel + .content-panel {
+	border-top: 0;
+}
+
+main h1 {
+	font-weight: 600;
+	letter-spacing: -0.035em;
+	line-height: 1.05;
+	text-wrap: balance;
+	max-width: 18ch;
+	margin-top: clamp(1.5rem, 4vw, 3rem);
+}
+
+.sl-markdown-content :is(h2, h3, h4, h5) {
+	font-weight: 600;
+	color: var(--text);
+	text-wrap: balance;
+}
+.sl-markdown-content h2 {
+	letter-spacing: -0.02em;
+}
+.sl-markdown-content h3 {
+	letter-spacing: -0.015em;
+}
+
+/* A section opens under a hairline, with more room above the heading than below it. */
+.sl-markdown-content :not(.sl-heading-wrapper) + .sl-heading-wrapper.level-h2,
+.sl-markdown-content .sl-heading-wrapper.level-h2:not(:first-child) {
+	margin-top: 3.25rem;
+	padding-top: 2rem;
+	border-top: 1px solid var(--line);
+}
+.sl-markdown-content .sl-heading-wrapper.level-h3:not(:first-child) {
+	margin-top: 2.25rem;
+}
+.sl-markdown-content .sl-heading-wrapper + * {
+	margin-top: 0.85rem;
+}
+
+/* The first paragraph of a page is its lead. */
+.sl-markdown-content > p:first-child {
+	font-size: clamp(1.1rem, 1.7vw, 1.25rem);
+	line-height: 1.5;
+	color: var(--text);
+	text-wrap: pretty;
+}
+
+.sl-markdown-content strong {
+	color: var(--text);
+	font-weight: 600;
+}
+
+/* Body links keep their color; the underline turns green on hover. */
+.sl-markdown-content a:not(.sl-anchor-link, .sl-link-button, .lib-name) {
+	color: var(--text);
+	text-decoration: underline;
+	text-decoration-color: var(--line-strong);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.22em;
+}
+.sl-markdown-content a:not(.sl-anchor-link, .sl-link-button, .lib-name):hover {
+	text-decoration-color: var(--accent);
+}
+
+/* Lists: the short green dash instead of a bullet. */
+.sl-markdown-content ul:not([role='tablist'], .lib-rows, .rel-rows) {
+	list-style: none;
+	padding-inline-start: 1.15rem;
+}
+.sl-markdown-content ul:not([role='tablist'], .lib-rows, .rel-rows) > li {
+	position: relative;
+}
+.sl-markdown-content ul:not([role='tablist'], .lib-rows, .rel-rows) > li::before {
+	content: '';
+	position: absolute;
+	inset-inline-start: -1.15rem;
+	top: 0.8em;
+	width: 0.45rem;
+	height: 1px;
+	background: var(--accent);
+}
+.sl-markdown-content ol > li::marker {
+	font-family: var(--mono);
+	font-size: 0.8125rem;
+	color: var(--faint);
+}
+.sl-markdown-content li + li {
+	margin-top: 0.35rem;
+}
+
+/* Inline code: mono on the raised tone. */
+.sl-markdown-content code:not(pre code) {
+	font-family: var(--mono);
+	font-size: 0.86em;
+	color: var(--text);
+	background: var(--surface);
+	border-radius: 3px;
+	padding: 0.12em 0.34em;
+	overflow-wrap: anywhere;
+}
+.sl-markdown-content :is(h2, h3, h4) code:not(pre code) {
+	font-size: 0.9em;
+	letter-spacing: 0;
+}
+
+/* Tables read as ruled ledgers: hairlines, no zebra, no fills. */
+.sl-markdown-content table {
+	display: block;
+	overflow-x: auto;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9375rem;
+	line-height: 1.5;
+}
+.sl-markdown-content table :is(th, td) {
+	padding: 0.7rem 1.25rem 0.7rem 0;
+	border-bottom: 1px solid var(--line);
+	vertical-align: top;
+	text-align: start;
+}
+.sl-markdown-content table :is(th, td):last-child {
+	padding-inline-end: 0;
+}
+.sl-markdown-content thead th {
+	font-size: 0.8125rem;
+	font-weight: 400;
+	color: var(--faint);
+	border-bottom-color: var(--line-strong);
+	white-space: nowrap;
+}
+.sl-markdown-content tbody tr:nth-child(2n) {
+	background: transparent;
+}
+.sl-markdown-content td:first-child code {
+	white-space: nowrap;
+	overflow-wrap: normal;
+	background: transparent;
+	padding: 0;
+}
+
+.sl-markdown-content hr {
+	border: 0;
+	border-top: 1px solid var(--line);
+	margin-block: 2.5rem;
+}
+
+.sl-markdown-content blockquote {
+	border-inline-start: 1px solid var(--line-strong);
+	padding-inline-start: 1.15rem;
+	color: var(--muted);
+}
+
+/* ---------- Asides: margin notes, not colored boxes ---------- */
+
+.starlight-aside {
+	margin-block: 1.75rem;
+	padding: 0.75rem 0 0;
+	border: 0;
+	border-top: 1px solid var(--line-strong);
+	background: transparent;
+	color: var(--muted);
+	font-size: 0.9375rem;
+	line-height: 1.55;
+}
+.starlight-aside__title {
+	font-size: 0.8125rem;
+	font-weight: 400;
+	color: var(--faint);
+	gap: 0.4rem;
+}
+.starlight-aside--caution .starlight-aside__title,
+.starlight-aside--danger .starlight-aside__title {
+	color: var(--text);
+	font-weight: 600;
+}
+.starlight-aside__icon {
+	font-size: 1em;
+}
+.starlight-aside__title + .starlight-aside__content {
+	margin-top: 0.3rem;
+}
+.starlight-aside__content a {
+	color: var(--text);
+}
+
+/* ---------- Code blocks ---------- */
+
+.expressive-code {
+	margin-block: 1.5rem;
+}
+.expressive-code .frame.has-title:not(.is-terminal) .header {
+	background: var(--code-bg);
+}
+.expressive-code .frame .header .title,
+.expressive-code .frame.is-terminal .header .title {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+	color: var(--faint);
+}
+.expressive-code .copy button {
+	border-radius: 999px;
+}
+
+/* ---------- Steps and tabs ---------- */
+
+.sl-steps > li::before {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--accent);
+	background: transparent;
+	box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.sl-steps > li::after {
+	background: var(--line);
+}
+
+starlight-tabs [role='tablist'] {
+	border-bottom-color: var(--line);
+}
+starlight-tabs [role='tab'] {
+	color: var(--faint);
+	font-size: 0.875rem;
+}
+starlight-tabs [role='tab'][aria-selected='true'] {
+	color: var(--text);
+	font-weight: 600;
+	border-color: var(--accent);
+}
+
+/* ---------- Page foot ---------- */
+
+.pagination-links {
+	gap: 0;
+	border-top: 1px solid var(--line);
+	border-bottom: 1px solid var(--line);
+}
+.pagination-links a {
+	border: 0;
+	border-radius: 0;
+	padding: 1.1rem 0;
+	color: var(--faint);
+	font-size: 0.8125rem;
+	box-shadow: none;
+}
+.pagination-links a .link-title {
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: var(--text);
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.22em;
+}
+.pagination-links a:hover .link-title {
+	text-decoration-color: var(--accent);
+}
+.pagination-links a svg {
+	color: var(--accent);
+	font-size: 1.1rem;
+}
+
+footer .meta a {
+	color: var(--faint);
+	text-decoration: none;
+}
+footer .meta a:hover {
+	color: var(--text);
+}
+
+/* ---------- Splash page (the index of libraries) ---------- */
+
+:root:not([data-has-sidebar]) {
+	--sl-content-width: 62rem;
+}
+:root:not([data-has-sidebar]) main h1 {
+	max-width: 16ch;
+}
+
+@media (hover: none) {
+	.sidebar-content a,
+	.sidebar-content summary {
+		padding-block: 0.6rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ---------- Second pass ---------- */
+
+/* Table cells keep code tokens whole; on narrow screens the table scrolls sideways instead. */
+.sl-markdown-content table code:not(pre code) {
+	overflow-wrap: normal;
+	word-break: normal;
+	white-space: nowrap;
+}
+.sl-markdown-content table td:last-child:not(:first-child) {
+	min-width: 13rem;
+}
+.sl-markdown-content table td:last-child code:not(pre code) {
+	white-space: normal;
+	overflow-wrap: anywhere;
+}
+
+/* No empty ruled box where a page has no previous or next link. */
+.pagination-links:not(:has(a)) {
+	display: none;
+}
+footer .meta:empty {
+	display: none;
+}
+
+/* Menu button on phones: a hairline control, not a filled disc. */
+.sl-menu-button {
+	background: transparent;
+	color: var(--text);
+	box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+[aria-expanded='true'] .sl-menu-button,
+.sl-menu-button[aria-expanded='true'] {
+	background: transparent;
+	color: var(--text);
+	box-shadow: inset 0 0 0 1px var(--accent);
+}

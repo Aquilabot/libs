@@ -1,0 +1,66 @@
+---
+title: share-links
+description: A self-hosted Node service for short links to URL-fragment state and for image uploads with per-image delete tokens.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+share-links is a small HTTP service with two jobs. It turns the state a browser app keeps in its URL fragment into a short link, and it stores images that the same app uploads, each with its own delete token. It is one Node process with no dependencies outside the standard library: `node:http`, `node:sqlite`, `node:zlib` and `node:crypto`.
+
+Source: [github.com/Aquilabot/share-links](https://github.com/Aquilabot/share-links) (MIT).
+
+## What kind of project this is
+
+It is a self-hosted service, not an npm library. `package.json` is marked `"private": true`, has version `1.0.0` and declares no dependencies. You clone the repository and run `src/main.mjs` with Node 24 or later, or build the container image from the `Dockerfile` with Docker Compose. Nothing is published to a package registry.
+
+The README describes its provenance this way: extracted from the share service of a private hobby project and rewritten as a standalone service.
+
+## The problem it addresses
+
+An app that keeps its whole state in the URL fragment can share that state by sharing the URL, but the URL grows with the state. share-links stores the fragment once and returns a ten-character id. Opening `/s/<id>` sends the browser back to the app with the fragment restored. The app can also upload PNG, JPEG or WebP images, reference them by URL, and delete one later with the token returned at upload.
+
+The service is meant to run on the same origin as the app. A reverse proxy routes `/api/links`, `/api/images`, `/api/health` and `/s/` of the app's origin to it. It sends no CORS headers, and it accepts POST and DELETE from a browser only when `Origin` and `Sec-Fetch-Site` say the request comes from that origin.
+
+## How a short link works
+
+<Steps>
+
+1. The app gzips a JSON object (for example with `CompressionStream('gzip')`), encodes it as base64url, prepends `#state=v1.` and POSTs the result as `text/plain` to `/api/links`.
+
+2. The service checks the prefix, the canonical base64url spelling, a single gzip member and a JSON object. It stores the payload in `links.sqlite` under a random id and answers `201` with `id` and `url`. The same payload posted again answers `200` with the same id.
+
+3. Someone opens `/s/<id>`. The service answers `302` to `PUBLIC_ORIGIN` + `LINK_TARGET_PATH` + the payload. The first opening clears the link's expiry, so an opened link stays.
+
+4. A link nobody opens within 30 days (`UNOPENED_TTL_MS`) expires. An hourly sweep deletes expired rows.
+
+</Steps>
+
+## How an image upload works
+
+<Steps>
+
+1. The app POSTs the raw image bytes to `/api/images` with `Content-Type` set to `image/png`, `image/jpeg` or `image/webp`.
+
+2. The service reads the type and dimensions from the file's own header bytes. The declared type must match, each side must be 16 to 2048 pixels, and the body must be at most 1.5 MiB.
+
+3. A new image is stored in `images.sqlite` and the answer is `201` with `id`, `url` and a random `token`. Only the SHA-256 of the token is kept. The same bytes uploaded again answer `200` with the existing id and no token.
+
+4. `DELETE /api/images/<id>` with the header `X-Delete-Token` removes it. A wrong token and an unknown id get the same `404`.
+
+</Steps>
+
+## What it does not do
+
+- It does not terminate TLS. The reverse proxy does.
+- It does not authenticate uploaders. Abuse is bounded by per-client and global rate limits, a shared memory budget for request bodies, and count and byte caps on each store.
+- It does not scan for malware and never decodes pixels. A file with a valid header and broken image data is stored as is. Re-encoding in the browser, which also drops EXIF metadata, is the client's job.
+- It does not serve other origins. There is no CORS, and a preflight gets `405`.
+- It does not list, edit or expire images. They stay until their token is used or an operator purges them with `src/admin.mjs`.
+- It does not defend against an attacker on the host. The threat model trusts the proxy, the operator and the host.
+
+## Where to go next
+
+- [Installation](/libs/share-links/installation/) and [quick start](/libs/share-links/quick-start/)
+- [Short links and their expiry](/libs/share-links/guides/short-links/)
+- [Threat model](/libs/share-links/guides/threat-model/)
+- [HTTP API reference](/libs/share-links/reference/http-api/) and [configuration](/libs/share-links/reference/configuration/)

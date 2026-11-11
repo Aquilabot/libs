@@ -1,0 +1,62 @@
+---
+title: spring-gotenberg-reports
+description: A Spring Boot reference application that renders PDF reports from Thymeleaf HTML templates through Gotenberg.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+spring-gotenberg-reports shows how to produce PDF reports in Spring Boot without JasperReports. Each report is a plain Thymeleaf HTML template with a print stylesheet. [Gotenberg](https://gotenberg.dev), a headless Chromium behind an HTTP API, prints the HTML to PDF. Long reports are split into sections, converted in parallel, merged into one file, and the browser follows progress over Server-Sent Events.
+
+Source: [github.com/Aquilabot/spring-gotenberg-reports](https://github.com/Aquilabot/spring-gotenberg-reports) (MIT).
+
+## What kind of project this is
+
+It is a runnable Spring Boot application, not a library. The `pom.xml` builds an executable jar (`spring-boot-maven-plugin`, version `0.1.0-SNAPSHOT`) and the README gives no artifact coordinates to add as a dependency. You clone the repository, run it, and copy or adapt the parts you need: the Gotenberg client, the renderer, the job service and the template conventions.
+
+The author wrote it after leading a migration from JasperReports to HTML templates rendered by Gotenberg; the repository shows that approach on a sample domain. All data is synthetic: fictional banks, invented names and `.example` e-mail domains.
+
+## The problem it addresses
+
+JasperReports layouts live in `.jrxml` files produced by a designer tool, with absolute coordinates, font extensions packaged as jars, and text that overflows fixed-size boxes. Reviewing a layout change in a pull request is hard. With HTML templates the report is ordinary source code: it renders in a browser while you work on it, tests can assert on it, and the PDF engine runs as a separate process that can crash, restart or scale on its own.
+
+## How a single PDF is produced
+
+<Steps>
+
+1. The browser calls `GET /api/reports/{type}/{id}`. `ReportController` looks up the sample record (an `Invoice`, `Statement` or `PortfolioSummary`, each implementing `Report`).
+
+2. `ReportRenderer` processes the Thymeleaf template named by `Report.template()`, plus `page-header.html` and `page-footer.html`, and bundles them with every `.css`, `.woff2`, `.svg` and `.png` file from `report-assets/` into an `HtmlDocument`.
+
+3. `GotenbergClient` posts that document as a multipart form to Gotenberg's `/forms/chromium/convert/html` route with `preferCssPageSize=true` and `printBackground=true`. Transport errors, 429 and 5xx answers are retried with exponential backoff.
+
+4. The PDF body is streamed from Gotenberg to the client without being buffered in memory.
+
+</Steps>
+
+Combined reports follow the same path for each section on its own virtual thread, bounded by a `Semaphore`, then call Gotenberg's `/forms/pdfengines/merge` route. See [Combined reports as background jobs](/libs/spring-gotenberg-reports/guides/combined-reports/).
+
+## Main pieces
+
+| Package | Classes | Role |
+|---|---|---|
+| `dev.aquilabot.reports.gotenberg` | `GotenbergClient`, `PdfEngine`, `HtmlDocument`, `PdfStream`, `GotenbergException`, `GotenbergProperties` | HTTP client for the two Gotenberg routes, with retries and Micrometer timers |
+| `dev.aquilabot.reports.report` | `Report`, `ReportRenderer`, `Formats`, `LineChart`, `BarChart` | Template rendering and chart geometry |
+| `dev.aquilabot.reports.job` | `CombinedReportService`, `ReportJob`, `JobEvent`, `JobProperties`, `ResultStore` | Parallel section rendering, merge, cancellation, temporary storage |
+| `dev.aquilabot.reports.web` | `ReportController`, `CombinedReportController`, `ErrorHandling`, `SampleReports` | HTTP endpoints and problem-detail errors |
+| `dev.aquilabot.reports.sample` | `SampleData`, `Invoice`, `Statement`, `PortfolioSummary` | Deterministic fake data for the three sample reports |
+
+## What it does not do
+
+- No authentication. The actuator health endpoint shows details.
+- Finished combined PDFs and job state live on local disk and in memory, so several app instances need sticky sessions or shared storage.
+- Page numbers in a combined report restart in each section.
+- Output is plain Chromium PDF, not PDF/A.
+- There is no data access layer. Reports come from `SampleData`, which generates the same document for the same id.
+
+The full list is on the [compatibility and limitations](/libs/spring-gotenberg-reports/compatibility/) page.
+
+## Next steps
+
+- [Installation](/libs/spring-gotenberg-reports/installation/)
+- [Quick start](/libs/spring-gotenberg-reports/quick-start/)
+- [Add a report template](/libs/spring-gotenberg-reports/guides/add-a-report-template/)

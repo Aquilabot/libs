@@ -1,0 +1,36 @@
+---
+title: ngx-sse-resource
+description: Server-Sent Events as Angular signals, with reconnect backoff, named events and SSR support.
+---
+
+`ngx-sse-resource` is a small Angular library with one function, `sseResource()`. It opens an `EventSource`, keeps the last event in a signal, reconnects with exponential backoff and closes the connection when the component or service that created it is destroyed.
+
+Source code: [github.com/Aquilabot/ngx-sse-resource](https://github.com/Aquilabot/ngx-sse-resource). Current version 0.1.0, MIT license, Angular 22.
+
+## The problem
+
+The browser `EventSource` API is callback based. Using it in an Angular component means wiring `addEventListener` calls, closing the source in `ngOnDestroy`, guarding against server rendering where `EventSource` does not exist, and writing your own retry logic, because the browser retries at a fixed interval and never backs off. When the stream depends on a route parameter or a selected item, you also have to close the old connection and open a new one each time it changes.
+
+## How it works
+
+You pass `sseResource()` a function that returns a URL, plus optional settings. The function runs inside a `computed`, so it can read signals. An `effect` watches that URL: when it changes, the old `EventSource` closes and a new one opens. Each incoming event goes through `parse` (default `JSON.parse`) and lands in the `value` signal. The `status`, `error` and `lastEventId` signals describe the connection. On a connection error the library closes the native `EventSource` and opens a new one after a delay that grows by a factor up to a cap. The resource registers a cleanup with the injector's `DestroyRef`, so the connection and any pending reconnect timer go away with the component or service.
+
+```ts
+readonly price = sseResource<Price>(() => '/api/prices');
+```
+
+## What it does not do
+
+- It does not send POST requests or custom headers. It uses `EventSource`, which only makes GET requests. You can supply a different constructor through the `SSE_EVENT_SOURCE` token.
+- It keeps only the last value. It does not buffer a history of events.
+- It does not add jitter to the backoff delay.
+- It does not share connections. Two resources with the same URL open two connections.
+- It does not expose RxJS observables. Use `toObservable()` from `@angular/core/rxjs-interop` if you need one.
+- It is not published to npm yet. See [Installation](/libs/ngx-sse-resource/installation/).
+
+## Where to go next
+
+- [Installation](/libs/ngx-sse-resource/installation/)
+- [Quick start](/libs/ngx-sse-resource/quick-start/)
+- [Reconnection and backoff](/libs/ngx-sse-resource/guides/reconnection/)
+- [API reference](/libs/ngx-sse-resource/reference/api/)

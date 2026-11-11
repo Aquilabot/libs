@@ -1,0 +1,57 @@
+---
+title: spring-idempotency
+description: Idempotency-Key header support for Spring Boot MVC, with an in-memory store and a PostgreSQL store.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+spring-idempotency adds support for the `Idempotency-Key` request header to Spring Boot MVC applications. A client that retries a POST or PATCH with the same key gets the first response back, and the controller method runs only once.
+
+It follows the IETF draft [The Idempotency-Key HTTP Header Field](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/). Error responses are RFC 9457 problem details with the `application/problem+json` content type.
+
+Source code: [github.com/Aquilabot/spring-idempotency](https://github.com/Aquilabot/spring-idempotency). MIT license.
+
+## The problem
+
+A client sends `POST /orders`, the server creates the order, and the connection drops before the response arrives. The client cannot tell whether the order exists. If it retries, it may create a second order. If it gives up, it may lose the first one.
+
+With an idempotency key, the client attaches a unique value to the request and reuses it on every retry. The server remembers the key and the response, and answers retries from that record.
+
+## How it works
+
+A servlet filter, `IdempotencyFilter`, handles requests to controller methods annotated with `@Idempotent` and requests that match `idempotency.path-patterns`. For each protected request:
+
+<Steps>
+
+1. The filter reads the `Idempotency-Key` header. A missing key gives 400 when the endpoint requires one. An empty key, a key longer than 255 characters (the default limit) or a key with characters outside printable ASCII gives 400.
+
+2. It computes a fingerprint: SHA-256 over the HTTP method, the path with its query string, and the request body.
+
+3. It asks the store to claim the key within a scope. The default scope is the authenticated principal's name.
+
+4. If the claim succeeds, the controller method runs. The filter stores the status, a selected set of headers and the body, then sends the response. If the handler returned 5xx or 429, threw an exception or called `sendError`, the filter releases the key instead, so a retry runs the handler again.
+
+5. If the key already exists, the filter compares fingerprints. A different fingerprint gives 422. A matching fingerprint for a request that is still running gives 409. A matching fingerprint for a completed request replays the stored response with the header `Idempotent-Replayed: true`.
+
+</Steps>
+
+Keys expire after `idempotency.ttl`, 24 hours by default. An in-progress claim blocks retries for `idempotency.lock-timeout`, 1 minute by default, which covers an instance that crashes mid-request.
+
+Two stores come with the library. `InMemoryIdempotencyStore` keeps keys in a `ConcurrentHashMap` and is the default. `JdbcIdempotencyStore` keeps keys in a PostgreSQL table and claims a key with one `INSERT ... ON CONFLICT DO UPDATE ... WHERE` statement, so the handler runs once across application instances that share the database.
+
+## What it does not do
+
+- It does not support Spring WebFlux. It works with Spring MVC on a servlet container.
+- It rejects asynchronous handlers (`Callable`, `CompletionStage`, `DeferredResult`, `WebAsyncTask`, `ResponseBodyEmitter`, `StreamingResponseBody`) with an `IllegalStateException`.
+- It does not normalize JSON. The same JSON with different key order or whitespace has a different fingerprint and gets 422.
+- It does not stream. The request body and the response body are held in memory.
+- It does not ship a Redis store. You can provide your own `IdempotencyStore` bean.
+- It does not schedule cleanup of expired rows in PostgreSQL. You call `deleteExpired` yourself.
+- It is not published to Maven Central. You build it from source, see [installation](/libs/spring-idempotency/installation/).
+
+## Where to go next
+
+- [Installation](/libs/spring-idempotency/installation/)
+- [Quick start](/libs/spring-idempotency/quick-start/)
+- [Protecting endpoints](/libs/spring-idempotency/guides/protecting-endpoints/)
+- [Configuration reference](/libs/spring-idempotency/reference/configuration/)
