@@ -25,7 +25,9 @@ export default defineConfig({
 				'./src/styles/theme.css',
 			],
 			components: {
-				SocialIcons: './src/components/HeaderLinks.astro',
+				Header: './src/components/Header.astro',
+				ThemeSelect: './src/components/ThemeToggle.astro',
+				PageTitle: './src/components/PageTitle.astro',
 				Footer: './src/components/Footer.astro',
 				SkipLink: './src/components/SkipLink.astro',
 			},

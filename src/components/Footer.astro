@@ -1,63 +1,185 @@
 ---
 import Default from '@astrojs/starlight/components/Footer.astro';
+import { libraries } from '../data/libraries.mjs';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isIndex = !Astro.locals.starlightRoute.hasSidebar;
+
+// The closing band on the index: real identifiers from the four projects, repeated to fill the rows.
+const words = [
+	'@Idempotent',
+	'Idempotency-Key',
+	'Idempotent-Replayed: true',
+	'IdempotencyStore',
+	'GotenbergClient',
+	'ReportRenderer',
+	'GET /api/reports/{type}/{id}',
+	'sseResource()',
+	'SSE_EVENT_SOURCE',
+	'SseConnectionError',
+	'POST /api/links',
+	'POST /api/images',
+	'storage_full',
+	'Retry-After',
+];
+const rows = Array.from({ length: 6 }, (_, r) =>
+	Array.from({ length: 16 }, (_, i) => words[(r * 5 + i * 3) % words.length]).join('  ·  '),
+);
 ---
 
 <Default />
 
 <div class="site-foot">
-	<p>
-		Written from the code and tests of each repository. If a page and the code disagree, the code is right and the page
-		has a bug: <a href="https://github.com/Aquilabot/libs/issues">open an issue</a>.
-	</p>
-	<ul>
-		<li><a href="https://oss.clx.pe">All libraries <span aria-hidden="true">↗</span></a></li>
-		<li><a href="https://libs.clx.pe">brackets and hashchain docs <span aria-hidden="true">↗</span></a></li>
-		<li><a href="https://github.com/Aquilabot">GitHub <span aria-hidden="true">↗</span></a></li>
-		<li><a href="https://aquilabot.dev">aquilabot.dev <span aria-hidden="true">↗</span></a></li>
-	</ul>
-	<p class="legal">© 2026 Jean Carlo Benites Porras. Code samples are MIT, like the libraries they come from.</p>
+	<div class="cols">
+		<p class="statement">
+			Written from the code and tests of each repository. If a page and the code disagree, the code is right and the
+			page has a bug. <a href="https://github.com/Aquilabot/libs/issues">Open an issue</a>.
+		</p>
+		<nav aria-label="Libraries">
+			<h2>Libraries</h2>
+			<ul>
+				{
+					libraries.map((lib) => (
+						<li>
+							<a class="mono" href={`${base}/${lib.name}/`}>
+								{lib.name}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<nav aria-label="Related">
+			<h2>Related</h2>
+			<ul>
+				<li><a href="https://oss.clx.pe">All six libraries <span aria-hidden="true">↗</span></a></li>
+				<li><a href="https://libs.clx.pe">brackets docs <span aria-hidden="true">↗</span></a></li>
+				<li><a href="https://libs.clx.pe">hashchain docs <span aria-hidden="true">↗</span></a></li>
+			</ul>
+		</nav>
+		<nav aria-label="Author">
+			<h2>Author</h2>
+			<ul>
+				<li><a href="https://aquilabot.dev">aquilabot.dev <span aria-hidden="true">↗</span></a></li>
+				<li><a href="https://github.com/Aquilabot">GitHub <span aria-hidden="true">↗</span></a></li>
+				<li><a href="https://github.com/Aquilabot/libs">This site's source <span aria-hidden="true">↗</span></a></li>
+			</ul>
+		</nav>
+	</div>
+	<p class="legal">© 2026 Jean Carlo Benites Porras. Code samples are MIT, like the projects they come from.</p>
+	{
+		isIndex && (
+			<div class="band" aria-hidden="true">
+				{rows.map((row) => (
+					<p>{row}</p>
+				))}
+			</div>
+		)
+	}
 </div>
 
 <style>
 	.site-foot {
-		margin-top: 3.5rem;
-		padding-top: 1.25rem;
+		margin-top: 4rem;
+		padding-top: 1.75rem;
 		border-top: 1px solid var(--line);
 		color: var(--faint);
 		font-size: 0.8125rem;
 		line-height: 1.5;
 	}
-	.site-foot p {
-		max-width: 34rem;
+	.cols {
+		display: grid;
+		grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+		gap: 2rem 2rem;
+		align-items: start;
+	}
+	.statement {
 		margin: 0;
+		max-width: 24rem;
+		color: var(--muted);
+		font-size: 0.875rem;
 	}
-	.site-foot ul {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem 1.5rem;
+	h2 {
+		margin: 0 0 0.6rem;
+		font-size: 0.8125rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: var(--faint);
+	}
+	ul {
 		list-style: none;
+		margin: 0;
 		padding: 0;
-		margin: 1rem 0;
 	}
-	.site-foot a {
+	li + li {
+		margin-top: 0.35rem;
+	}
+	a {
 		color: var(--muted);
 		text-decoration: underline;
-		text-decoration-color: var(--line-strong);
+		text-decoration-color: transparent;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.22em;
+		transition:
+			color 150ms ease-out,
+			text-decoration-color 150ms ease-out;
 	}
-	.site-foot a:hover {
+	a:hover {
 		color: var(--text);
 		text-decoration-color: var(--accent);
 	}
-	.site-foot ul a {
-		text-decoration-color: transparent;
+	.statement a {
+		color: var(--text);
+		text-decoration-color: var(--line-strong);
 	}
-	.site-foot span {
+	a span {
 		color: var(--accent);
 	}
+	.mono {
+		font-family: var(--mono);
+		font-size: 0.78125rem;
+	}
+	.legal {
+		margin: 2.25rem 0 0;
+		padding-top: 1rem;
+		border-top: 1px solid var(--line);
+	}
+
+	/* Index only: a field of identifiers that thins out towards the bottom. */
+	.band {
+		margin: 2.5rem 0 0;
+		overflow: hidden;
+		font-family: var(--mono);
+		font-size: 0.75rem;
+		line-height: 2;
+		color: var(--accent);
+		white-space: nowrap;
+		user-select: none;
+		-webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 96%);
+		mask-image: linear-gradient(to bottom, #000 0%, transparent 96%);
+	}
+	.band p {
+		margin: 0;
+	}
+	.band p:nth-child(2n) {
+		margin-inline-start: -7rem;
+		color: var(--faint);
+	}
+	.band p:nth-child(3n) {
+		margin-inline-start: -15rem;
+	}
+
+	@media (max-width: 50rem) {
+		.cols {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.statement {
+			grid-column: 1 / -1;
+		}
+	}
 	@media print {
-		.site-foot ul {
+		.cols nav,
+		.band {
 			display: none;
 		}
 	}

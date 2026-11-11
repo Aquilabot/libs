@@ -1,0 +1,123 @@
+[  418041ms] [LOG] %c Designed & Engineered by https://www.edoardolunardi.dev/  border:1px solid #999;padding:6px 10px;border-radius:4px;font-size:12px; @ https://www.contentarchitecture.dev/_next/static/immutable/chunks/3o49ns3w_orbb.js:1
+[  435273ms] [WARNING] [corona] mounted inside an element with opacity:0 — the corona is rendering but cannot be seen. Move the attribute to a visible wrapper (a sibling of the hidden glyph, not the glyph itself). JSHandle@node @ https://www.eclipse.space/:1399
+[  435289ms] [LOG] startValue 500 @ https://www.eclipse.space/:2860
+[  435639ms] [WARNING] Failed to decode downloaded font: https://cdn.prod.website-files.com/6a4526c0f9942cb399aed7d3/6a6ca63bbc3fa5b2a27b62e3_Group%20427320942.svg @ https://www.eclipse.space/:1
+[  435639ms] [WARNING] OTS parsing error: invalid sfntVersion: 1014199911 @ https://www.eclipse.space/:1
+[  507115ms] [WARNING] Caught a recoverable error. The site is still functional, but might have some UI flickering or degraded page load performance. If you are the author of this website, update external components and check recently added custom code or code overrides to fix the following server/client mismatches:
+ Error: Minified React error #425; visit https://reactjs.org/docs/error-decoder.html?invariant=425 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at Ri (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:6:68)
+    at fs (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:14074)
+    at nc (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:37420)
+    at tc (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:37182)
+    at ec (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:37094)
+    at zs (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:32162)
+    at Et (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:1:10822)
+    at MessagePort.Ot (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:1:11177) 
+    at style
+    at section
+    at E (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/MitraDownloads.Bgjo01cm.mjs:1:7287)
+    at M (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/MitraDownloads.Bgjo01cm.mjs:1:11294)
+    at div
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:653:22467
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:651:65
+    at TC (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:660:750)
+    at Suspense
+    at Mu (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:16264)
+    at Ru (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:17007)
+    at Lu (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:16837)
+    at Gd (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:74526)
+    at Ro (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:589:26209)
+    at div
+    at s (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:5764)
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:660:1487
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:653:28298
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:653:28103
+    at div
+    at div
+    at section
+    at main
+    at s (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:5764)
+    at div
+    at s (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:5764)
+    at Gd (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:74526)
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/uFDlpMkJlvOttS_mZVYvtrUaelpgNUJacZZ8591WWVY.DOuRVS3M.mjs:11:289089
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:651:65
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:544:407
+    at div
+    at s (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:5764)
+    at Gd (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:74526)
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/toplevel-deps.CpGva8oH.mjs:1:116741
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:651:65
+    at z (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/script_main.jj6nW-Yf.mjs:1:493)
+    at kp (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:55848)
+    at Dy (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:650:5564)
+    at Suspense
+    at Mu (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:16264)
+    at bC (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:653:28384)
+    at Lf (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:38841)
+    at Wi (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:589:4974)
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:660:2789
+    at https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:651:65
+    at _n (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:544:2620)
+    at Op (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:49085)
+    at lp (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:43759)
+    at lT (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:660:18101)
+    at Bp (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:57634)
+    at cr (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:545:10083)
+    at Vi (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/motion.D2H4LG7Q.mjs:12:906)
+    at Ii (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:589:4385)
+    at Vp (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:623:57740)
+    at ZC (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:660:6354)
+    at qr (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/framer.DivICDPb.mjs:545:17316) @ https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/script_main.jj6nW-Yf.mjs:1
+[  507115ms] [WARNING] Caught a recoverable error. The site is still functional, but might have some UI flickering or degraded page load performance. If you are the author of this website, update external components and check recently added custom code or code overrides to fix the following server/client mismatches:
+ Error: Minified React error #422; visit https://reactjs.org/docs/error-decoder.html?invariant=422 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at is (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:8286)
+    at ts (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:7227)
+    at cp (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:68599)
+    at tc (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:37121)
+    at ec (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:37094)
+    at zs (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:8:32162)
+    at Et (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:1:10822)
+    at MessagePort.Ot (https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/react.D4EFu9FG.mjs:1:11177) null @ https://framerusercontent.com/sites/LcwdUB8y81vZi3HVAnoF2/script_main.jj6nW-Yf.mjs:1
+[  508502ms] [LOG] [Framer On-Page Editing] Unavailable because not on a `framer.app` subdomain and access status is no-auth @ https://app.framerstatic.com/editorbar.4DFCQCIW.mjs:1
+[  520950ms] [LOG] Pixelation script with MutationObserver loaded! @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  521142ms] [WARNING] Charm images not found! @ https://dianavaleryoviedo.github.io/hello-world/doKeychainEffect.js:1
+[  521165ms] [WARNING] yui: NOT loaded: squarespace-visitor_site_error_reporter @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  521165ms] [WARNING] yui: NOT loaded: squarespace-cldr_resource_pack @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  521166ms] [WARNING] yui: NOT loaded: squarespace-common_vendors_stable @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  521166ms] [WARNING] yui: NOT loaded: squarespace-common_vendors @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  521170ms] [WARNING] yui: NOT loaded: squarespace-user_account_core @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  521170ms] [WARNING] yui: NOT loaded: squarespace-performance @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  521207ms] [LOG] Lazy Summaries started. @ https://assets.squarewebsites.org/lazy-summaries/lazy-summaries.min.js:7
+[  524153ms] [LOG] Pixelation script with MutationObserver loaded! @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524153ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524153ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524153ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524221ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524263ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524266ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524267ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524267ms] [WARNING] Charm images not found! @ https://dianavaleryoviedo.github.io/hello-world/doKeychainEffect.js:1
+[  524280ms] [WARNING] yui: NOT loaded: squarespace-visitor_site_error_reporter @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524280ms] [WARNING] yui: NOT loaded: squarespace-cldr_resource_pack @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524280ms] [WARNING] yui: NOT loaded: squarespace-common_vendors_stable @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524280ms] [WARNING] yui: NOT loaded: squarespace-common_vendors @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524285ms] [WARNING] yui: NOT loaded: squarespace-user_account_core @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524285ms] [WARNING] yui: NOT loaded: squarespace-performance @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524285ms] [WARNING] yui: NOT loaded: squarespace-management @ https://assets.squarespace.com/universal/scripts-compressed/common-vendors-stable-590e3e89b3319eb6-min.en-US.js:8
+[  524292ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524326ms] [LOG] Lazy Summaries started. @ https://assets.squarewebsites.org/lazy-summaries/lazy-summaries.min.js:7
+[  524343ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524434ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524500ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524766ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524809ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  524823ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  525097ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  525277ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  525277ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  525368ms] [LOG] Skipping pixelation effect inside MutationObserver due to small screen. @ https://dianavaleryoviedo.github.io/hello-world/doPixelateSummaryHover.js:1
+[  525690ms] [LOG] BT site script loaded @ https://builderstable.net/site.js:1
+[  525891ms] [WARNING] [progress] .progress bar or section not found @ https://builderstable.net/site.js:1580
+[  531064ms] [LOG] Error @ https://styles.refero.design/149e9513-01fa-4fb0-aad4-566afd725d1b/2d206a39-8ed7-437e-a3be-862e0f06eea3/a-4-a/c.js?i=0&v=3&h=styles.refero.design:1
+[  540107ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.recent.design/admin/presence:1

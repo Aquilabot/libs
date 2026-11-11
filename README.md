@@ -23,7 +23,7 @@ npm run build    # writes dist/ and fails on a broken internal link
 
 - Pages are Markdown under `src/content/docs/<project>/`.
 - The sidebar order is in `src/sidebar.mjs`.
-- The facts on the index page are in `src/data/libraries.mjs`.
+- The facts on the index page, including the test counts, are in `src/data/libraries.mjs`. Recount the tests when a library changes.
 - The theme is `src/styles/theme.css` plus two code themes in `src/styles/code-themes.mjs`. `DESIGN.md` describes it.
 
 Internal links are written with the `/libs/` base and a trailing slash, for example `/libs/share-links/reference/http-api/`.

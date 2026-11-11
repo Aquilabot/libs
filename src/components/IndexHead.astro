@@ -1,0 +1,114 @@
+---
+import { libraries, testsCountedOn } from '../data/libraries.mjs';
+---
+
+<div class="head">
+	<p class="lead">
+		Guides and reference for four projects by Jean Carlo Benites Porras. Every page comes from the source, the tests and
+		the build files of its repository, and each example names the classes, options or endpoints it uses so you can
+		check it there.
+	</p>
+
+	<div class="ledger">
+		<ul class="plain">
+			{
+				libraries.map((lib) => (
+					<li>
+						<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+							<path d="M3 8.5l3.2 3.2L13 4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<span class="value">{lib.tests}</span>
+						<span class="claim">
+							tests in <a href={`https://github.com/Aquilabot/${lib.name}`}>{lib.name}</a>
+						</span>
+						<span class="source">{lib.testSource}</span>
+					</li>
+				))
+			}
+		</ul>
+		<p class="caption">Test cases in each repository, counted in the source on {testsCountedOn}.</p>
+	</div>
+</div>
+
+<style>
+	.head {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+		column-gap: 3.5rem;
+		align-items: start;
+	}
+	.lead {
+		margin: 0;
+		max-width: 34rem;
+		font-size: clamp(1.1rem, 1.7vw, 1.25rem);
+		line-height: 1.5;
+		color: var(--text);
+		text-wrap: pretty;
+	}
+	.ledger {
+		margin: 0;
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--line);
+	}
+	li {
+		display: grid;
+		grid-template-columns: 1rem 2.25rem minmax(0, 1fr);
+		column-gap: 0.75rem;
+		align-items: baseline;
+		margin: 0;
+		padding: 0.6rem 0;
+		border-bottom: 1px solid var(--line);
+		font-size: 0.9375rem;
+		line-height: 1.4;
+	}
+	svg {
+		align-self: center;
+		color: var(--accent);
+	}
+	.value {
+		font-family: var(--mono);
+		font-variant-numeric: tabular-nums;
+		font-weight: 500;
+		color: var(--accent);
+		text-align: end;
+	}
+	.claim {
+		color: var(--text);
+	}
+	.claim a {
+		font-family: var(--mono);
+		font-size: 0.875rem;
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: var(--line-strong);
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+	}
+	.claim a:hover {
+		text-decoration-color: var(--accent);
+	}
+	.source {
+		grid-column: 3;
+		color: var(--faint);
+		font-size: 0.8125rem;
+	}
+	.caption {
+		margin: 0.6rem 0 0;
+		color: var(--faint);
+		font-size: 0.8125rem;
+		line-height: 1.5;
+	}
+	@media (max-width: 62rem) {
+		.head {
+			grid-template-columns: minmax(0, 1fr);
+			row-gap: 2rem;
+		}
+		.ledger {
+			max-width: 34rem;
+		}
+	}
+</style>

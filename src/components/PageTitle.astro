@@ -1,0 +1,31 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+
+const isIndex = Astro.locals.starlightRoute.entry.data.template === 'splash';
+---
+
+{
+	isIndex ? (
+		<h1 id="_top" class="index-title">
+			Four open source projects, <span>documented from their code.</span>
+		</h1>
+	) : (
+		<Default />
+	)
+}
+
+<style>
+	.index-title {
+		max-width: 20ch;
+		margin-top: clamp(2rem, 6vw, 4.5rem);
+		font-size: clamp(2.25rem, 5.2vw, 3.75rem);
+		font-weight: 600;
+		line-height: 1.04;
+		letter-spacing: -0.035em;
+		color: var(--text);
+		text-wrap: balance;
+	}
+	.index-title span {
+		color: var(--faint);
+	}
+</style>

@@ -29,6 +29,15 @@ Type: Schibsted Grotesk Variable for words, JetBrains Mono Variable for code, li
 - Code blocks use two custom Shiki themes built from the same grays and the one green: strings and numbers are green, keywords and punctuation step back, comments are `faint`.
 - Focus ring: 2px `accent`, 3px offset. Text selection is `accent` on `accent-ink`.
 
+## Index, header and footer
+
+- A ribbon sits above the masthead on the sunken ground: one line that says these are four of six libraries, and a link to the page that lists all six.
+- The theme control is a two-state switch. The thumb travels and the moon turns into a sun. With no stored choice the site follows the system setting.
+- The index title is set in two tones: the subject in `text`, the claim in `faint`.
+- Beside the lead, a proof ledger: green check, mono green count, claim, source. The counts are the test cases in each repository.
+- The footer has a statement and three link columns with `faint` headings. On the index it closes with rows of real identifiers from the four projects, in mono, fading out.
+- Hover changes use a 150ms ease-out. Nothing loops.
+
 ## Contrast
 
 Computed with the WCAG 2 formula. `faint` on `bg` is 5.16:1 dark and 5.33:1 light, and 5.0:1 or better on the code ground. `muted` on `bg` is 8.12:1 dark and 8.18:1 light. `accent` on `bg` is 12.51:1 dark and 6.75:1 light.

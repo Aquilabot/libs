@@ -1,0 +1,123 @@
+---
+// A two-state switch in place of Starlight's three-option select. With no stored choice the
+// site follows the system setting; the first click stores the opposite of what is showing.
+---
+
+<theme-toggle>
+	<button type="button" role="switch" aria-label="Dark theme">
+		<span class="thumb">
+			<svg class="moon" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+				<path
+					d="M13 9.6A5.6 5.6 0 0 1 6.4 3a5.6 5.6 0 1 0 6.6 6.6Z"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.6"
+					stroke-linejoin="round"></path>
+			</svg>
+			<svg class="sun" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+				<circle cx="8" cy="8" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+				<path
+					d="M8 1.6v1.6M8 12.8v1.6M1.6 8h1.6M12.8 8h1.6M3.5 3.5l1.1 1.1M11.4 11.4l1.1 1.1M3.5 12.5l1.1-1.1M11.4 4.6l1.1-1.1"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.6"
+					stroke-linecap="round"></path>
+			</svg>
+		</span>
+	</button>
+</theme-toggle>
+
+<script is:inline>
+	document.querySelectorAll('theme-toggle button').forEach((b) => {
+		b.setAttribute('aria-checked', String(document.documentElement.dataset.theme !== 'light'));
+	});
+</script>
+
+<script>
+	class ThemeToggle extends HTMLElement {
+		connectedCallback() {
+			const button = this.querySelector('button');
+			button?.addEventListener('click', () => {
+				const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+				document.documentElement.dataset.theme = next;
+				try {
+					localStorage.setItem('starlight-theme', next);
+				} catch {}
+				document
+					.querySelectorAll('theme-toggle button')
+					.forEach((b) => b.setAttribute('aria-checked', String(next === 'dark')));
+			});
+			matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+				let stored = '';
+				try {
+					stored = localStorage.getItem('starlight-theme') ?? '';
+				} catch {}
+				if (stored) return;
+				document.documentElement.dataset.theme = e.matches ? 'light' : 'dark';
+				button?.setAttribute('aria-checked', String(!e.matches));
+			});
+		}
+	}
+	customElements.define('theme-toggle', ThemeToggle);
+</script>
+
+<style>
+	theme-toggle {
+		display: inline-flex;
+	}
+	button {
+		position: relative;
+		width: 2.75rem;
+		height: 1.5rem;
+		padding: 0;
+		border: 1px solid var(--line-strong);
+		border-radius: 999px;
+		background: var(--code-bg);
+		cursor: pointer;
+		transition: border-color 150ms ease-out;
+	}
+	button:hover {
+		border-color: var(--accent);
+	}
+	.thumb {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		display: grid;
+		place-items: center;
+		width: calc(1.5rem - 6px);
+		height: calc(1.5rem - 6px);
+		border-radius: 50%;
+		background: var(--text);
+		color: var(--bg);
+		transform: translateX(1.25rem);
+		transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	:global([data-theme='light']) .thumb {
+		transform: translateX(0);
+	}
+	svg {
+		grid-area: 1 / 1;
+		transition:
+			opacity 180ms ease-out,
+			transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	.sun {
+		opacity: 0;
+		transform: rotate(-60deg) scale(0.6);
+	}
+	:global([data-theme='light']) .sun {
+		opacity: 1;
+		transform: none;
+	}
+	:global([data-theme='light']) .moon {
+		opacity: 0;
+		transform: rotate(60deg) scale(0.6);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.thumb,
+		svg {
+			transition: none;
+		}
+	}
+</style>
