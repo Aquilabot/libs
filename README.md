@@ -9,7 +9,7 @@ Documentation site for four open source projects, published at <https://aquilabo
 | ngx-sse-resource | [/libs/ngx-sse-resource/](https://aquilabot.github.io/libs/ngx-sse-resource/) | [Aquilabot/ngx-sse-resource](https://github.com/Aquilabot/ngx-sse-resource) |
 | share-links | [/libs/share-links/](https://aquilabot.github.io/libs/share-links/) | [Aquilabot/share-links](https://github.com/Aquilabot/share-links) |
 
-All six libraries are listed at <https://oss.clx.pe>. The docs for `brackets` and `hashchain` live at <https://libs.clx.pe>.
+Related: the docs for `brackets` and `hashchain`, two Go libraries by the same author, live at <https://libs.clx.pe>. The author's site is <https://aquilabot.dev>.
 
 ## Working on the site
 

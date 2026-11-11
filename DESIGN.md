@@ -31,7 +31,7 @@ Type: Schibsted Grotesk Variable for words, JetBrains Mono Variable for code, li
 
 ## Index, header and footer
 
-- A ribbon sits above the masthead on the sunken ground: one line that says these are four of six libraries, and a link to the page that lists all six.
+- A ribbon sits above the masthead on the sunken ground: one line that says whose projects these are, and a link to the author's site.
 - The theme control is a two-state switch. The thumb travels and the moon turns into a sun. With no stored choice the site follows the system setting.
 - The index title is set in two tones: the subject in `text`, the claim in `faint`.
 - Beside the lead, a proof ledger: green check, mono green count, claim, source. The counts are the test cases in each repository.
